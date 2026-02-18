@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
+
 function Products() {
-    return (
-        <div>
-            <h1>Prodotti</h1>
-            <p>Questa è la pagina dei prodotti del nostro sito.</p>
-        </div>
-    );
-}  
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Prodotti</h1>
+
+      <ul>
+        {products.map(product => (
+          <li key={product.id}>{product.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 export default Products;     
